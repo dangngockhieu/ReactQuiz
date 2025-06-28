@@ -1,9 +1,10 @@
 import { useEffect, useState} from "react";
 import { useParams, useLocation } from "react-router-dom";
-import {getDataQuiz} from "../../services/apiService";
+import {getDataQuiz, postSubmitQuiz} from "../../services/apiService";
 import _, { set } from "lodash";
 import './DetailQuiz.scss';
 import Question from "./Question";
+import ModelResult from "./ModelResult";
 
 const DetailQuiz = (props) => {
     const params = useParams(); 
@@ -11,6 +12,8 @@ const DetailQuiz = (props) => {
     const quizId = params.id; 
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
+    const [isShow, setIsShow] = useState(false);
+    const [dataModel, setDataModel] = useState({});
     const handlePrev = () => {
         if (dataQuiz && index > 0) {
             setIndex(index - 1);
@@ -19,6 +22,41 @@ const DetailQuiz = (props) => {
     const handleNext = () => {
         if (dataQuiz && index < dataQuiz.length - 1) {
             setIndex(index + 1);
+        }
+    }
+    const handleFinish = async() => {
+        let payload={
+            quizId: +quizId,
+            answers: []
+        };
+        let answers = [];
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(question => {
+                let questionId = question.questionId;
+                let userAnswerId = []; 
+                question.answers.forEach(answer => {
+                    if (answer.isSelected === true) {
+                        userAnswerId.push(+answer.id);
+                    }
+                })
+                answers.push({
+                    questionId: +questionId , 
+                    userAnswerId: userAnswerId});
+            })
+            payload.answers = answers;
+            //submit api
+            let res = await postSubmitQuiz(payload);
+            if(res && res.EC === 0) {
+                setDataModel({
+                    countCorrect: res.DT.countCorrect,
+                    countTotal: res.DT.countTotal,
+                    quizData: res.DT.quizData
+                });
+                setIsShow(true);
+            }
+            else{
+                alert("Wrong answer, please try again!");
+            }
         }
     }
     const handleCheck=(answerId, questionId)=>{
@@ -92,7 +130,7 @@ const DetailQuiz = (props) => {
                             Next
                     </button>
                     <button className="btn btn-warning"
-                        onClick={()=>handleNext()}>
+                        onClick={()=>handleFinish()}>
                             Finish
                     </button>
                 </div>
@@ -100,6 +138,11 @@ const DetailQuiz = (props) => {
             <div className="right-content">
                 ytyuty
             </div>
+            <ModelResult
+                show={isShow}
+                setShow={setIsShow}
+                dataModel={dataModel}
+            />
         </div>
     );
 }
