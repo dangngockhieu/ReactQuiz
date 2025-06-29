@@ -7,7 +7,8 @@ import DeleteQuiz from './DeleteQuiz';
 import Accordion from 'react-bootstrap/Accordion';
 import CreateQuiz from './CreateQuiz';
 
-const ManageQuiz = (props) => {const [showDelete, setShowDelete] = useState(false);
+const ManageQuiz = (props) => {
+    const [showDelete, setShowDelete] = useState(false);
     const [dataDelete, setDataDelete] = useState({});
     const [showUpdate, setShowUpdate] = useState(false);
     const [dataUpdate, setDataUpdate] = useState({});

@@ -11,6 +11,7 @@ import SignUp from './components/Auth/SignUp';
 import ListQuiz from './components/User/ListQuiz';
 import DetailQuiz from './components/User/DetailQuiz';
 import ManageQuiz from './components/Admin/Content/ManageQuiz/ManageQuiz';
+import Questions from './components/Admin/Content/ManageQuestion/Questions';
 const NotFound = () => {
     return (
         <div className="container mt-5 alert alert-danger" role="alert">
@@ -31,6 +32,7 @@ const Layout = (props)=>{
           <Route index element={<DashBoard />} />
           <Route path="manage-users" element={<ManagerUser />} />
           <Route path="manage-quiz" element={<ManageQuiz />} />
+          <Route path="manage-questions" element={<Questions />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
