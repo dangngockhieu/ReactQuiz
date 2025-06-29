@@ -1,0 +1,44 @@
+.quiz-container{
+    .accordion-header {
+        padding: 15px;
+        font-weight: 600;      
+        font-size: 50px;
+    }
+    .accordion-item {
+        border: 1.5px solid #b3c6e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(9, 4, 4, 0.03);
+        margin-bottom: 16px;
+    }
+    legend{
+        font-size: 13px;
+    }
+    .list-detail{
+        padding: 15px;
+    }
+    .add-new{
+        .more-actions {
+            display: flex;
+            align-items: center;
+            gap: 150px;
+
+            label, lable {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                cursor: pointer;
+            }
+
+            svg {
+                 margin-right: 4px;
+                font-size: 22px;
+            }
+            .img-preview{
+                img{
+                    width: auto;
+                    height: 235px;
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
 .admin-container {
+    overflow: hidden;
     display: flex;
     .admin-sidebar {
         .pro-sidebar {
@@ -8,11 +9,20 @@
     .admin-content{
         width: 100%;
         .admin-header{
+            padding-left: 15px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
             height: 40px;
             border: 1px solid green;
+            .content{
+                font-size: 20px;
+                font-weight: 600;
+            }
         }
         .admin-main{
-            
+            height: calc(100vh - 50px);
+            margin-bottom: 10px;
         }
     }
 }

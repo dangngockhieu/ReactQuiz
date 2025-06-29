@@ -1,18 +1,17 @@
-import { deleteUser } from '../../../services/apiService';
+import { deleteQuiz } from '../../../../services/apiService';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
-const ModelDeleteUser = (props) => {
+const DeleteQuiz = (props) => {
   const {show, setShow, dataDelete} = props;
 
   const handleClose = () => setShow(false);
-  const handleSubmitDeleteUser = async() => {
-      let data = await deleteUser(dataDelete.id);
+  const handleSubmitDeleteQuiz = async() => {
+      let data = await deleteQuiz(dataDelete.id);
       if(data && data.EC === 0) {
-          toast.success("Delete user successfully");
+          toast.success("Delete quiz successfully");
           handleClose(); 
-          props.setCurrentPage(1);
-          await props.fetchListUsersWithPaginate(1);
+          await props.fetchQuiz();
   } 
   if(data && data.EC !== 0) {
     toast.error(data.message);
@@ -25,14 +24,14 @@ const ModelDeleteUser = (props) => {
       onHide={handleClose}
       backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete the User?</Modal.Title>
+          <Modal.Title>Confirm Delete the Quiz?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure to delete this user. email : <b>{dataDelete && dataDelete.email ? dataDelete.email: ""}</b></Modal.Body>
+        <Modal.Body>Are you sure to delete this quiz? Name : <b>{dataDelete && dataDelete.name ? dataDelete.name: ""}</b></Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancle
           </Button>
-          <Button variant="primary" onClick={handleSubmitDeleteUser}>
+          <Button variant="primary" onClick={handleSubmitDeleteQuiz}>
             Confirm
           </Button>
         </Modal.Footer>
@@ -41,4 +40,4 @@ const ModelDeleteUser = (props) => {
   );
 }
 
-export default ModelDeleteUser;
+export default DeleteQuiz;

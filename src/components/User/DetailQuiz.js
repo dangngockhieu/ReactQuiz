@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react";
 import { useParams, useLocation } from "react-router-dom";
 import {getDataQuiz, postSubmitQuiz} from "../../services/apiService";
-import _, { set } from "lodash";
+import _, {  } from "lodash";
 import './DetailQuiz.scss';
 import Question from "./Question";
 import ModelResult from "./ModelResult";
