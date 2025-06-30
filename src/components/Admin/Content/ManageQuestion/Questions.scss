@@ -16,12 +16,13 @@
             }
             .group-upload{
                 padding-top: 15px;
-                .label-upload{
-                    padding: 3px 5px;
-                    height: 30px;
-                    border-radius: 5px;
-                    border: 1px solid red;
-                    margin-right: 5px;
+                display: 'flex';
+                align-items: 'center';
+                .label-up{
+                    color: purple;
+                    padding-right: 10px;
+                    padding-bottom: 4px;
+                    font-size: 35px;
                     cursor: pointer;
                 }
             }
@@ -29,12 +30,12 @@
                 padding-top: 15px;
                 .icon-add{
                     font-size: 30px;
-                    color: green ;
+                    color: blue ;
                 }
                 .icon-remove{
                     margin-left: 10px;
                     font-size: 30px;
-                    color: red ;
+                    color: rgb(235, 123, 57) ;
                 }
                 button {
                     border: none;
@@ -65,12 +66,12 @@
             .btn-group{
                 .icon-add{
                     font-size: 25px;
-                    color: green ;
+                    color: blue ;
                 }
                 .icon-remove{
                     margin-left: 10px;
                     font-size: 25px;
-                    color: red ;
+                    color: rgb(235, 123, 57) ;
                 }
                button {
                     border: none;

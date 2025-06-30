@@ -78,30 +78,36 @@ const DetailQuiz = (props) => {
         }
     }
     useEffect(() => {
-        fetchQuestions();
-    }, [quizId]);
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId);
         if (res && res.EC === 0) {
-            let raw=res.DT;
+            let raw = res.DT;
             let data = _.chain(raw)
-            .groupBy("id").map((value, key) => {
-                let answers = [];
-                let questionDescription, image = null;
-                value.forEach((item, index) => {
-                    if (index === 0) {
-                        questionDescription = item.description;
-                        image = item.image;
-                    }
-                    item.answers.isSelected = false;
-                    answers.push(item.answers);
-                });
-                
-                return {questionId: key, answers, questionDescription, image}})
-            .value()
+                .groupBy("id").map((value, key) => {
+                    let answers = [];
+                    let questionDescription, image = null;
+                    value.forEach((item, index) => {
+                        if (index === 0) {
+                            questionDescription = item.description;
+                            image = item.image;
+                        }
+                        // Nếu answers là mảng
+                        if (Array.isArray(item.answers)) {
+                            item.answers.forEach(ans => ans.isSelected = false);
+                            answers.push(...item.answers);
+                        } else if (item.answers) {
+                            item.answers.isSelected = false;
+                            answers.push(item.answers);
+                        }
+                    });
+                    return { questionId: key, answers, questionDescription, image }
+                })
+                .value();
             setDataQuiz(data);
         }
     };
+    fetchQuestions();
+}, [quizId]);
     return (
         <div className="detail-quiz-container">
             <div className="left-content">
@@ -110,7 +116,7 @@ const DetailQuiz = (props) => {
                 </div>
                 <hr />
                 <div className="q-body">
-                    <img/>
+                    {/* <img/> */}
                 </div>
                 <div className="q-content">
                     <Question 

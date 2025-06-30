@@ -31,28 +31,35 @@ const SideBar = (props) => {
                 breakPoint="md"
                 onToggle={handleToggleSidebar}
             >
-                <SidebarHeader>
-                    <div
-                        style={{
-                            padding: '24px',
-                            textTransform: 'uppercase',
-                            fontWeight: 'bold',
-                            fontSize: 14,
-                            letterSpacing: '1px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                        }}
-                    >
-                        <DiReact size={'3em'} color={"00bfff"} />
-                        <span onClick={()=>navigate('/')}>Admin </span>
-                    </div>
-                </SidebarHeader>
+            <SidebarHeader>
+                <div style={{
+                    paddingTop: '24px',
+                    paddingBottom: '24px',
+                    paddingLeft: '13px',
+                    paddingRight: '24px',
+                    textTransform: 'uppercase',
+                    fontWeight: 'bold',
+                    fontSize: 18,
+                    letterSpacing: '1px',
+                }}
+            >
+            <DiReact size={'3em'} color={"00bfff"} />
+            {!collapsed && (
+                <span
+                    style={{ fontSize: "20px", paddingLeft: "10px", verticalAlign: "middle" }}
+                    onClick={() => navigate('/')}
+                >
+                    Admin
+                </span>
+            )}
+            </div>
+        </SidebarHeader>
 
                 <SidebarContent>
                     <Menu iconShape="circle">
                         <MenuItem
-                            icon={<MdDashboard />}
+                            icon={<MdDashboard style={{fontSize:"25px"}}/>}
+                            style={{fontSize:"15px"}}
                         >
                             Dashboard
                             <Link to="/admins" />
@@ -60,8 +67,9 @@ const SideBar = (props) => {
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            icon={<FaGem />}
+                            icon={<FaGem style={{fontSize:"25px"}}/>}
                             title="Features"
+                            style={{fontSize:"15px"}}
                         >
                             <MenuItem> 
                                 Quản lý Users
@@ -84,7 +92,7 @@ const SideBar = (props) => {
                     <div
                         className="sidebar-btn-wrapper"
                         style={{
-                            padding: '20px 24px',
+                            padding: '20px 20px',
                         }}
                     >
                         <a
@@ -93,9 +101,10 @@ const SideBar = (props) => {
                             className="sidebar-btn"
                             rel="noopener noreferrer"
                         >
-                            <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                &#169; View Source
-                            </span>
+                        <span style={{ display: 'flex', alignItems: 'center',whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            <span style={{ fontSize: "21.5px" }}>&#169;</span > 
+                            <span style={{fontSize: "13px"}}>View Source</span>
+                        </span>
                         </a>
                     </div>
                 </SidebarFooter>
