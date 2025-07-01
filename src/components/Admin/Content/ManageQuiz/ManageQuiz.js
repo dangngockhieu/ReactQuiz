@@ -6,6 +6,8 @@ import UpdateQuiz from './UpdateQuiz';
 import DeleteQuiz from './DeleteQuiz'; 
 import Accordion from 'react-bootstrap/Accordion';
 import CreateQuiz from './CreateQuiz';
+import QuizQA from './QuizQA';
+import AssignQuiz from './AssignQuiz';
 
 const ManageQuiz = (props) => {
     const [showDelete, setShowDelete] = useState(false);
@@ -46,17 +48,29 @@ const ManageQuiz = (props) => {
                         <CreateQuiz
                             fetchQuiz={fetchQuiz}
                         />
+                        <div className="list-detail">
+                        <TableQuiz 
+                            listQuiz={listQuiz}
+                            fetchQuiz={fetchQuiz}
+                            handleClickBtnUpdate={handleClickBtnUpdate}
+                            handleClickBtnDelete={handleClickBtnDelete}
+                        />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A Quiz</Accordion.Header>
+                    <Accordion.Body>
+                        <QuizQA />
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Body>
+                        <AssignQuiz />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <div className="list-detail">
-                <TableQuiz 
-                    listQuiz={listQuiz}
-                    fetchQuiz={fetchQuiz}
-                    handleClickBtnUpdate={handleClickBtnUpdate}
-                    handleClickBtnDelete={handleClickBtnDelete}
-                />
-            </div>
             <UpdateQuiz
                 show={showUpdate}
                 setShow={setShowUpdate}

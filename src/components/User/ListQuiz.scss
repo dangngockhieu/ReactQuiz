@@ -1,7 +1,9 @@
 .list-quiz-container {
   display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
   .card {
-    margin-left: 25px;
+    margin-left: 50px;
     margin-right: 25px;
   }
 }

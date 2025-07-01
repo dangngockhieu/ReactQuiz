@@ -56,6 +56,9 @@ max-width: 1300px !important;
     }
 }
   }
+  .app-content{
+    height: calc(100vh - 60px);
+  }
 }
 .btn-login{
   border-radius: 5px;

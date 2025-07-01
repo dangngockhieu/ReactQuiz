@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Select from 'react-select';
+import Lightbox from "react-awesome-lightbox";
 import { toast } from "react-toastify";
 import { putUpdateQuiz } from '../../../../services/apiService';
 import { FcPlus } from 'react-icons/fc';
@@ -28,7 +29,7 @@ const [description, setDescription] = useState("");
 const [type, setType] = useState("");
 const [image, setImage] = useState("");
 const [previewImage, setPreviewImage] = useState("");
-
+const [isPreviewImage, setIsPreviewImage] = useState(false);
 useEffect(() => {
   if(!_.isEmpty(dataUpdate)) {
     setName(dataUpdate.name);
@@ -111,7 +112,11 @@ const handleSubmiUpdateQuiz = async() => {
       </div>
     <div className="col-md-12 img-preview">
        {previewImage ? 
-          <img src={previewImage} alt="Preview" /> 
+          <img src={previewImage} 
+            alt="Preview" 
+            style={{ cursor: "pointer" }}
+            onClick={() => setIsPreviewImage(true)} 
+          /> 
         : <span>Preview image</span>
 }
     </div>
@@ -127,6 +132,13 @@ const handleSubmiUpdateQuiz = async() => {
           </Button>
         </Modal.Footer>
       </Modal>
+      {isPreviewImage &&
+  <Lightbox
+    image={previewImage}
+    title={name}
+    onClose={() => setIsPreviewImage(false)}
+  />
+}
     </>
   );
 }
