@@ -1,28 +1,37 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Questions.scss';
-import {getAllQuizForAdmin} from '../../../../services/apiService';
+import  {getAllQuizForAdmin, 
+        postCreateNewQuestion,
+        postCreateNewAnswer} 
+    from '../../../../services/apiService';
 import {v4 as uuidv4} from 'uuid';
 import _, {  } from 'lodash';
 import Lightbox from "react-awesome-lightbox";
+import { toast } from "react-toastify";
 import { BsFillPatchPlusFill } from 'react-icons/bs';
 import { BsFillPatchMinusFill } from 'react-icons/bs';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import {RiImageAddFill} from "react-icons/ri";
 const Questions =(props) =>{
-    const [selectedQuiz, setSelectedQuiz] = useState({});
-    const [questions, setQuestions] = useState([
+    const initQuestion =[
         {id: uuidv4(),
         description: '',
         imageFile: '',
         imageName: '',
+        isValidQ: true,
         answers: [
             {id: uuidv4(),
             description: '',
-            isCorrect: false}
+            isCorrect: false,
+            isValidA: true
+            }
         ]}
-    ]);
+    ];
+    const initSelected = {}
+    const [selectedQuiz, setSelectedQuiz] = useState(initSelected);
+    const [questions, setQuestions] = useState(initQuestion);
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
         title: '',
@@ -51,8 +60,9 @@ const Questions =(props) =>{
                 description: '',
                 imageFile: '',
                 imageName: '',
+                isValidQ: true,
                 answers: [
-                    {id: uuidv4(), description: '', isCorrect: false} 
+                    {id: uuidv4(), description: '', isCorrect: false, isValidA: true} 
                 ]
             };
             setQuestions([...questions, newQuestion]);
@@ -70,7 +80,8 @@ const Questions =(props) =>{
             const newAnswer= {
                 id: uuidv4(),
                 description: '',
-                isCorrect: false
+                isCorrect: false,
+                isValidA: true
             };
             let index = questionsClone.findIndex(item => item.id === questionId);
             questionsClone[index].answers.push(newAnswer);
@@ -88,6 +99,7 @@ const Questions =(props) =>{
             let index = questionsClone.findIndex(item => item.id === id);
             if(index > -1){
                 questionsClone[index].description = value;
+                questionsClone[index].isValidQ = true;
                 setQuestions(questionsClone);
             }
         }
@@ -96,6 +108,7 @@ const Questions =(props) =>{
             let questionIndex = questionsClone.findIndex(item => item.id === id.questionId);
             let answerIndex = questionsClone[questionIndex].answers.findIndex(item => item.id === id.answerId);
             questionsClone[questionIndex].answers[answerIndex].description = value;
+            questionsClone[questionIndex].answers[answerIndex].isValidA = true;
             setQuestions(questionsClone);
         }
     }
@@ -108,22 +121,77 @@ const Questions =(props) =>{
             setQuestions(questionsClone);
         }
     }
-    const handleAnswerQuestion=(questionId, answerId, value)=>{
+    const handleAnswerQuestion = (questionId, answerId, value) => {
         let questionsClone = _.cloneDeep(questions);
-        let index = questionsClone.findIndex(item => item.id === questionId);
-        if(index > -1){
-            questionsClone[index].answers = questionsClone[index].answers.map(answer => {
-                if(answer.id === answerId){
-                    answer.isCorrect = value;
-                }
-                return answer;
-            })
-        }
-        questionsClone[index].answers[index].isCorrect = value;
+        let qIndex = questionsClone.findIndex(item => item.id === questionId);
+        if (qIndex > -1) {
+            questionsClone[qIndex].answers = questionsClone[qIndex].answers.map(ans => {
+            if (ans.id === answerId) {
+                return { ...ans, isCorrect: value };
+            }
+            return ans;
+        });
         setQuestions(questionsClone);
     }
-    const handleSubmitQuestionForQuiz = () => {
-        console.log('questions: ', questions);
+};
+    const handleSubmitQuestionForQuiz = async() => {
+        // validate Quiz 
+        if(_.isEmpty(selectedQuiz)){
+            toast.error("Please select a quiz");
+            return;
+        }
+        let questionsClone = _.cloneDeep(questions);
+        let isValid = true;
+        //validate answer
+        questionsClone.forEach((q) => {
+        q.isValidQ = !!q.description;
+        q.answers.forEach(a => {
+            a.isValidA = !!a.description;
+            if (!a.isValidA) isValid = false;
+        });
+        if (!q.isValidQ) isValid = false;
+    });
+
+    setQuestions(questionsClone);
+        if(!isValid){
+            return;
+        }
+        // validate: mỗi câu hỏi phải có ít nhất 1 đáp án đúng
+    for (let i = 0; i < questionsClone.length; i++) {
+        const q = questionsClone[i];
+        const hasCorrect = q.answers.some(a => a.isCorrect === true);
+        if (!hasCorrect) {
+            toast.error(`Question ${i + 1} must have at least one correct answer!`);
+            return;
+        }
+    }
+        //validate question
+        let isValidQuestion=true;
+        for(let i=0; i<questions.length; i++){
+            if(!questions[i].description){
+                isValidQuestion=false;
+                break;
+            }
+        }
+        if(!isValidQuestion){
+            return;
+        }
+        // submit 
+        for (const question of questions) {
+            const q=await postCreateNewQuestion(
+                +selectedQuiz.value, 
+                question.description, 
+                question.imageFile);
+            for (const answer of question.answers) {
+                await postCreateNewAnswer(
+                    answer.description, 
+                    answer.isCorrect,
+                    q.DT.id, );
+            }
+        }
+        toast.success("Create questions successfully");
+        setQuestions(initQuestion);
+        setSelectedQuiz(initSelected);
     }
     const handlePreviewImage = (id) => {
         let questionsClone = _.cloneDeep(questions);
@@ -146,7 +214,7 @@ const Questions =(props) =>{
                 <div className="col-6 form-group">
                     <label className="mb-2">Select Quiz</label>
                     <Select
-                        defaultValue={selectedQuiz}
+                        value={selectedQuiz}
                         onChange={setSelectedQuiz}
                         options={listQuiz}
                     />
@@ -160,7 +228,7 @@ const Questions =(props) =>{
                     <div className="question-content">
                         <div className="form-floating description">
                         <input type="text"
-                            className="form-control"
+                            className={`form-control${item.isValidQ === false ? ' is-invalid' : ''}`}
                             value={item.description}
                             onChange={(event)=> handleOnChange('question', item.id, event.target.value)}
                         />
@@ -197,13 +265,13 @@ const Questions =(props) =>{
                     { item.answers && item.answers.length > 0 &&
                         item.answers.map((answer, ansIndex) => (
                             <div key={answer.id} className="answer-content">
-                            <input className="form-check-input iscorrect" 
+                            <input className="form-check-input iscorrec" 
                                 type="checkbox"
                                 checked={answer.isCorrect}
                                 onChange={(event)=> handleAnswerQuestion(item.id, answer.id, event.target.checked)}
                             />
                             <div className="form-floating answer-name">
-                            <input type="text" className="form-control"
+                            <input type="text" className={`form-control${answer.isValidA === false ? ' is-invalid' : ''}`}
                                 value={answer.description}
                                 onChange={(event)=> handleOnChange('answer', { questionId: item.id, answerId: answer.id }, event.target.value)}
                             />
