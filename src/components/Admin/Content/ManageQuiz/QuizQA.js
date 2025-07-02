@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './QuizQA.scss';
-import  {getAllQuizForAdmin, 
-        postCreateNewQuestion,
-        postCreateNewAnswer,
-        getQuizWithQA} 
+import  {getAllQuizForAdmin,
+        getQuizWithQA,
+        postUpsertQA} 
     from '../../../../services/apiService';
 import {v4 as uuidv4} from 'uuid';
 import _, {  } from 'lodash';
@@ -217,23 +216,25 @@ const urltoFile = (url, filename, mimeType) =>{
         if(!isValidQuestion){
             return;
         }
-        // submit 
-        for (const question of questions) {
-            const q=await postCreateNewQuestion(
-                +selectedQuiz.value, 
-                question.description, 
-                question.imageFile);
-            for (const answer of question.answers) {
-                await postCreateNewAnswer(
-                    answer.description, 
-                    answer.isCorrect,
-                    q.DT.id, );
+        let questionClone = _.cloneDeep(questions);
+        for(let i=0; i<questionClone.length; i++){
+            if(questionClone[i].imageFile){
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile);
             }
         }
-        toast.success("Create questions successfully");
-        setQuestions(initQuestion);
-        setSelectedQuiz(initSelected);
+        let res = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionClone
+        });
+        // toast.success("Create questions successfully");
+        // setQuestions(initQuestion);
     }
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+});
     const handlePreviewImage = (id) => {
         let questionsClone = _.cloneDeep(questions);
         let index = questionsClone.findIndex(item => item.id === id);

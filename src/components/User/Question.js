@@ -47,7 +47,7 @@ const Question =(props) =>{
                         <input className="form-check-input" 
                             type="checkbox"
                             checked={item.isSelected ? true : false}
-                            onChange={(event) => hanleCheckBox(event, item.id, data.questionId)}  
+                            onChange={() => hanleCheckBox(item.id, data.questionId)}  
                         />
                         <label className="form-check-label">
                             {item.description}

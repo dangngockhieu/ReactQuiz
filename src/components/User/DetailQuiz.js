@@ -5,6 +5,7 @@ import _, {  } from "lodash";
 import './DetailQuiz.scss';
 import Question from "./Question";
 import ModelResult from "./ModelResult";
+import RightContent from "./Content/RightContent";
 
 const DetailQuiz = (props) => {
     const params = useParams(); 
@@ -116,7 +117,6 @@ const DetailQuiz = (props) => {
                 </div>
                 <hr />
                 <div className="q-body">
-                    {/* <img/> */}
                 </div>
                 <div className="q-content">
                     <Question 
@@ -142,7 +142,11 @@ const DetailQuiz = (props) => {
                 </div>
             </div>
             <div className="right-content">
-                ytyuty
+                <RightContent 
+                    dataQuiz={dataQuiz}
+                    handleFinish={handleFinish}
+                    setIndex={setIndex}
+                />
             </div>
             <ModelResult
                 show={isShow}
