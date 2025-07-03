@@ -1,0 +1,26 @@
+{
+          "homepage": {
+            "title1": "There's a better way to ask",
+            "title2": "You don't want to make a boring form. And your audience won't answer one. Create a App instead-and make everyone happy.",
+            "title3a": "Get's started. It's free",
+            "title3b": "Doing Quiz Now",
+            "login": "Login",
+            "signup": "Sign Up",
+            "user": "User",
+            "admin": "Admin",
+            "logout": "Logout",
+            "profile": "Profile",
+            "home": "Home",
+            "setting": "Setting",
+            "password": "Password",
+            "title_login1": "Don't have an account yet?",
+            "title_login2": "Forgot password ?",
+            "title_login3": "Hello, who's this?",
+            "title_signup1": "Already have an account?",
+            "title_signup2": "Get better data with conversational forms, surveys, quizzes & more.",
+            "title_signup3": "Username",
+            "title_signup4": "Create my free account",
+            "gotohomepage": "<< Go to HomePage"
+          }
+        }
+    

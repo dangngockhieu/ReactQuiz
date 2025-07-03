@@ -13,6 +13,11 @@ body {
 max-width: 1300px !important;
 }
 }
+.languages{
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+}
 .app-container{
   .header-container{
     .navbar{

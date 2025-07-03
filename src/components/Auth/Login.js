@@ -6,8 +6,12 @@ import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {ImSpinner10} from "react-icons/im";
 import {useDispatch} from 'react-redux';
-import { doLogin } from '../../redux/action/userAction'; // Assuming you have a userSlice with doLogin action
+import { doLogin } from '../../redux/action/userAction'; 
+import Language from '../Header/Language';
+import { useTranslation} from 'react-i18next';
 const Login = (props)=>{
+    const { t } = useTranslation();
+
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -45,27 +49,38 @@ const Login = (props)=>{
             setIsLoading(false);
         }
     }
+    const handleKeyDown = (event) => {
+        if(event.key === 'Enter') {
+            handleLogin();
+        }
+    }
     return (
         <div className="auth-container">
             <div className='header'>
-                <span>Don't have an account yet?</span>
-                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowSignUp()}>Sign up</button>
+                <span>{t('homepage.title_login1')}</span>
+                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowSignUp()}>{t('homepage.signup')}</button>
+                <Language />
             </div>
-            <div className='title col-4 mx-auto'>Typeform</div>
-            <div className='welcome col-4 mx-auto'>Hello, who's this?</div>
+            <div className='title col-4 mx-auto'>App</div>
+            <div className='welcome col-4 mx-auto'>{t('homepage.title_login3')}</div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
                     <label>Email</label>
-                    <input type='email' className="form-control" value={email}
-                        onChange={(event)=>setEmail(event.target.value)}/>
+                    <input type='email' 
+                        className="form-control" 
+                        value={email}
+                        onChange={(event)=>setEmail(event.target.value)}
+                        onKeyDown={(event) => handleKeyDown(event)}
+                    />
                 </div>
                 <div className='form-group'>
-                    <label>Password</label>
+                    <label>{t('homepage.password')}</label>
                     <div style={{ position: 'relative' }}>
                         <input type={showPassword ? "text" : "password"}
                             className="form-control"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)} 
+                            onKeyDown={(event) => handleKeyDown(event)}
                         />
                         <span style={{
                             position: 'absolute',
@@ -82,17 +97,17 @@ const Login = (props)=>{
                     </div>
 
                     </div>
-                    <span className="forot-password">Forgot password ?</span>
+                    <span className="forot-password">{t('homepage.title_login2')}</span>
                     <div>
                         <button className='btn-submit mx-auto'
                             onClick={()=>handleLogin()}
                             disabled={isLoading}>
                             {isLoading===true && <ImSpinner10 className='loader-icon' /> }
-                            <span>Login</span>
+                            <span>{t('homepage.login')}</span>
                         </button>
                     </div>
                     <div className="text-center">
-                        <span className="back" onClick={()=>{navigate('/')}}>&#60;&#60;  Go to HomePage</span>
+                        <span className="back" onClick={()=>{navigate('/')}}>{t('homepage.gotohomepage')}</span>
                     </div>
             </div>
         </div>  

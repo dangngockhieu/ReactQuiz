@@ -1,0 +1,25 @@
+{
+            "homepage": {
+                "title1": "Có một cách tốt hơn để hỏi",
+                "title2": "Bạn không muốn tạo một biểu mẫu nhàm chán. Và khán giả của bạn sẽ không trả lời. Thay vào đó, hãy tạo một biểu mẫu kiểu chữ - và làm cho mọi người vui vẻ.",
+                "title3a": "Hãy bắt đầu. Nó miễn phí",
+                "title3b": "Làm Quiz Ngay",
+                "login": "Đăng nhập",
+                "signup": "Đăng ký",
+                "user": "Người dùng",
+                "admin": "Quản trị",
+                "logout": "Đăng xuất",
+                "profile": "Hồ sơ",
+                "home": "Trang chủ",
+                "setting": "Cài đặt",
+                "password": "Mật khẩu",
+                "title_login1": "Bạn chưa có tài khoản?",
+                "title_login2": "Quên mật khẩu ?",
+                "title_login3": "Xin chào, đây là ai?",
+                "title_signup1": "Bạn đã có tài khoản?",
+                "title_signup2": "Nhận dữ liệu tốt hơn với các biểu mẫu trò chuyện, khảo sát, câu đố và nhiều hơn nữa.",
+                "title_signup3": "Tên người dùng",
+                "title_signup4": "Tạo tài khoản miễn phí của tôi",
+                "gotohomepage": "<< Quay lại Trang Chủ"
+    }
+  }

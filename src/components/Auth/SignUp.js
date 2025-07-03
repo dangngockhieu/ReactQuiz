@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { postSignUp } from '../../services/apiService'; 
 import { toast } from 'react-toastify'; 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useTranslation} from 'react-i18next';
+import Language from '../Header/Language';
 const SignUp = (props)=>{
+    const { t } = useTranslation();
+
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const [username, setUsername] = useState("");
@@ -43,12 +47,12 @@ const SignUp = (props)=>{
     return (
         <div className="auth-container">
             <div className='header'>
-                <span>Already have an account?</span>
-                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowLogin()}>Login</button>
+                <span>{t('homepage.title_signup1')}</span>
+                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowLogin()}>{t('homepage.login')}</button>
+                <Language />
             </div>
-            <div className='title col-4 mx-auto'>Typeform</div>
-            <div className='welcome col-4 mx-auto'>Get better data with conversational forms, 
-                surveys, quizzes & more.</div>
+            <div className='title col-4 mx-auto'>App</div>
+            <div className='welcome col-4 mx-auto'>{t('homepage.title_signup2')}</div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
                     <label>Email</label>
@@ -57,13 +61,13 @@ const SignUp = (props)=>{
                 </div>
 
             <div className='form-group'>
-                <label>Username</label>
+                <label>{t('homepage.title_signup3')}</label>
                     <input type='text' className="form-control" value={username}
                         onChange={(event)=>setUsername(event.target.value)}/>
             </div>
 
             <div className='form-group'>
-                <label>Password</label>
+                <label>{t('homepage.password')}</label>
                 <div style={{ position: 'relative' }}>
                     <input type={showPassword ? "text" : "password"}
                         className="form-control"
@@ -88,11 +92,11 @@ const SignUp = (props)=>{
                 <div>
                     <button className='btn-submit mx-auto'
                         onClick={()=>handleSignUp()}
-                    >Create my free account</button>
+                    >{t('homepage.title_signup4')}</button>
                 </div>
 
                 <div className="text-center">
-                    <span className="back" onClick={()=>{navigate('/')}}>&#60;&#60;  Go to HomePage</span>
+                    <span className="back" onClick={()=>{navigate('/')}}>{t('homepage.gotohomepage')}</span>
                 </div>
             </div>
         </div>  
