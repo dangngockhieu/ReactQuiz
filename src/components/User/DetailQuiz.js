@@ -6,8 +6,10 @@ import './DetailQuiz.scss';
 import Question from "./Question";
 import ModelResult from "./ModelResult";
 import RightContent from "./Content/RightContent";
-
+import { useTranslation} from 'react-i18next';
 const DetailQuiz = (props) => {
+    const { t } = useTranslation();
+
     const params = useParams(); 
     const location = useLocation();
     const quizId = params.id; 
@@ -101,6 +103,7 @@ const DetailQuiz = (props) => {
                             answers.push(item.answers);
                         }
                     });
+                    answers=_.orderBy(answers, ['id'], ['asc']);
                     return { questionId: key, answers, questionDescription, image }
                 })
                 .value();
@@ -129,15 +132,15 @@ const DetailQuiz = (props) => {
                 <div className="footer">
                     <button className="btn btn-secondary"
                         onClick={()=>handlePrev()}>
-                            Prev
+                            {t('user.prev')}
                     </button>
                     <button className="btn btn-primary"
                         onClick={()=>handleNext()}>
-                            Next
+                            {t('user.next')}
                     </button>
                     <button className="btn btn-warning"
                         onClick={()=>handleFinish()}>
-                            Finish
+                            {t('user.finish')}
                     </button>
                 </div>
             </div>

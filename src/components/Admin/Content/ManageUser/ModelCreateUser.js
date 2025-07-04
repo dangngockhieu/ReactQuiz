@@ -3,8 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from "react-toastify";
+import { useTranslation} from 'react-i18next';
 import { postCreateNewUser } from '../../../../services/apiService';
 const ModelCreateUser = (props) => {
+  const { t } = useTranslation();
+
 const { show, setShow } = props;
 const handleClose = () => {
   setShow(false);
@@ -62,7 +65,7 @@ const handleSubmitCreateUser = async() => {
       <Modal show={show} onHide={handleClose} 
       size='xl' backdrop="static" className="model-add-user">
         <Modal.Header closeButton>
-          <Modal.Title>Add new users</Modal.Title>
+          <Modal.Title>{t('manageUser.createUser')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <form className="row g-3">
@@ -74,7 +77,7 @@ const handleSubmitCreateUser = async() => {
     />
   </div>
   <div className="col-md-6">
-    <label className="form-label">Password</label>
+    <label className="form-label">{t('manageUser.password')}</label>
     <input type="password" className="form-control" 
         value={password}
         onChange={(event)=>setPassword(event.target.value)}
@@ -82,23 +85,23 @@ const handleSubmitCreateUser = async() => {
   </div>
   
   <div className="col-md-6">
-    <label className="form-label">Username</label>
+    <label className="form-label">{t('manageUser.username')}</label>
     <input type="text" className="form-control" 
         value={username}
         onChange={(event)=>setUsername(event.target.value)}
     />
   </div>
   <div className="col-md-4">
-    <label className="form-label">Role</label>
+    <label className="form-label">{t('manageUser.role')}</label>
     <select className="form-select" onChange={(event)=>setRole(event.target.value)}>
-      <option value="USER">USER</option>
-      <option value="ADMIN">ADMIN</option>
+      <option value={t('manageUser.user')}>{t('manageUser.user')}</option>
+      <option value={t('manageUser.admin')}>{t('manageUser.admin')}</option>
     </select>
   </div>
     <div className="col-md-12">
         <label className="form-label label-upload" htmlFor='labelUpload'>
           <FcPlus/>
-          Upload File Image
+          {t('manageUser.upload')}
           </label>
         <input type="file" 
         id="labelUpload" 
@@ -108,7 +111,7 @@ const handleSubmitCreateUser = async() => {
     <div className="col-md-12 img-preview">
        {previewImage ? 
           <img src={previewImage} alt="Preview" /> 
-        : <span>Preview image</span>
+        : <span>{t('manageUser.preview')}</span>
 }
     </div>
 
@@ -116,10 +119,10 @@ const handleSubmitCreateUser = async() => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t('manageUser.close')}
           </Button>
           <Button variant="primary" onClick={()=>handleSubmitCreateUser()}>
-            Save 
+            {t('manageUser.save')} 
           </Button>
         </Modal.Footer>
       </Modal>

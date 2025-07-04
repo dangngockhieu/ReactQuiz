@@ -1,0 +1,44 @@
+.dashboard-container{
+    padding: 15px;
+    .title{
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    .content{
+        display: flex;
+        gap: 20px;
+        .left-content{
+            width: 45%;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            .child{
+                background-color: #ededed;
+                width: calc(50% - 5px);
+                height: 150px;
+                border: 1px solid #ccc;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                flex-direction: column;
+                .text-1{
+                    font-size: 20px;
+                    font-weight: 400;;
+                }
+            }
+        }
+        .right-content{
+            width: calc(55% - 10px);
+            height: 350px;
+            flex: 1;
+            min-width: 340px;
+            background: #fff;
+            padding: 16px 8px 8px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

@@ -1,6 +1,7 @@
+import { useTranslation} from 'react-i18next';
 const TableQuiz = (props) => {
     const { listQuiz, handleClickBtnUpdate, handleClickBtnDelete } = props;
-
+    const { t } = useTranslation();
     return (
         <>
         <div style={{fontSize:"20px",fontWeight:"450",paddingLeft:"35px"}}>List Quiz:</div>
@@ -8,10 +9,10 @@ const TableQuiz = (props) => {
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{t('admin.name')}</th>
+                    <th scope="col">{t('admin.description')}</th>
+                    <th scope="col">{t('admin.type')}</th>
+                    <th scope="col">{t('admin.action')}</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,10 +27,10 @@ const TableQuiz = (props) => {
                                 <td style={{display: "flex", gap: "15px"}}>
                                     <button className="btn btn-warning mx-2"
                                         onClick={() => handleClickBtnUpdate(item)}
-                                    >Edit</button>
+                                    >{t('admin.edit')}</button>
                                     <button className="btn btn-danger"
                                         onClick={() => handleClickBtnDelete(item)}
-                                    >Delete</button>
+                                    >{t('admin.delete')}</button>
                                 </td>
                             </tr>
                         )

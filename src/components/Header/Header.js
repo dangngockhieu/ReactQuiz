@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/userAction';
 import Language from './Language';
 import { useTranslation} from 'react-i18next';
+import './Header.scss'; 
+import { GrReactjs } from "react-icons/gr";
 const Header = () => {
   const { t } = useTranslation();
   const isAuthenticated = useSelector(state => state.user.isAuthenticated);
@@ -40,13 +42,27 @@ const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/" style={{ fontSize: "2rem", fontWeight: 600 }}>App</Navbar.Brand>
+        <Navbar.Brand  style={{ fontSize: "3rem",         
+            fontWeight: 600,
+            lineHeight: "1.2",
+            marginRight: "1.5rem",    
+            paddingBottom: "1rem",
+            gap: "1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            }}>
+              <div ><GrReactjs style={{animation: "spin 5s infinite linear", 
+                transformOriginX: "center",
+                transformOriginY: "center", color:"#007bff"}} /> 
+              </div>
+              App</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavLink to="/" className="nav-link" style={{ fontSize: "1.5rem", fontWeight: 600}}>{t('homepage.home')}</NavLink>
-            <NavLink to="/users" className="nav-link" style={{ fontSize: "1.5rem", fontWeight: 600}}>{t('homepage.user')}</NavLink>
-            <NavLink to="/admins" className="nav-link" style={{ fontSize: "1.5rem", fontWeight: 600}}>{t('homepage.admin')}</NavLink>
+            <NavLink to="/" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.home')}</NavLink>
+            <NavLink to="/users" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.user')}</NavLink>
+            <NavLink to="/admins" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.admin')}</NavLink>
           </Nav>
           <Nav className="align-items-center">
                        
@@ -56,7 +72,7 @@ const Header = () => {
               <button className='btn-signup' onClick={()=>handleShowSignUp()}>{t('homepage.signup')}</button>
               </>
             :
-            <NavDropDown style={{ fontSize: "20px", fontWeight: 600, color:"black"}} title={t('homepage.setting')} id="basic-nav-dropdown">
+            <NavDropDown className="nav-a" title={t('homepage.setting')} id="basic-nav-dropdown">
               <NavDropDown.Item>{t('homepage.profile')}</NavDropDown.Item>
               <NavDropDown.Item onClick={()=>handelLogout()}>{t('homepage.logout')}</NavDropDown.Item>
             </NavDropDown>

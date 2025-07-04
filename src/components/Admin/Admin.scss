@@ -10,15 +10,50 @@
         width: 100%;
         .admin-header{
             padding-left: 15px;
+            padding-right: 50px;
             display: flex;
+            justify-content: space-between;
             gap: 20px;
             align-items: center;
-            height: 50px;
+            height: 60px;
             border-bottom: 1px solid green;
-            .content{
-                font-size:25px;
-                font-weight: 600;
+            .admin-header-left{  
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                .content{
+                    font-size:25px;
+                    font-weight: 600;
+                }
             }
+            .admin-header-right {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+            .nav-a > .dropdown-toggle {
+                color: #2f2d2d !important;
+                font-weight: 600 !important;
+                background: transparent !important;
+                border: none !important;
+                font-size: 1.3rem;
+                margin-right: 10px;
+            }
+
+            .languages > .dropdown-toggle {
+                color: red;
+                font-weight: 600 !important;
+                background: transparent !important;
+                border: none !important;
+                font-size: 1.3rem;
+                margin-left: 0;
+                margin-right: 0;
+                box-shadow: none !important;
+                transition: color 0.2s;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
         }
         .admin-main{
             height: calc(100vh - 50px);

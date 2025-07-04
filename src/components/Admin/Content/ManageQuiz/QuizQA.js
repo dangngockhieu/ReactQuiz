@@ -14,7 +14,10 @@ import { BsFillPatchMinusFill } from 'react-icons/bs';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import {RiImageAddFill} from "react-icons/ri";
+import { useTranslation} from 'react-i18next';
 const QuizQA =(props) =>{
+    const { t, i18n } = useTranslation();
+
     const initQuestion =[
         {id: uuidv4(),
         description: '',
@@ -226,7 +229,9 @@ const urltoFile = (url, filename, mimeType) =>{
             quizId: selectedQuiz.value,
             questions: questionClone
         });
-        // toast.success("Create questions successfully");
+        if(res && res.EC === 0){
+        toast.success("Create questions successfully");
+        }
         // setQuestions(initQuestion);
     }
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -250,7 +255,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
         <div className="questions-container">
             <div className="add-new-question">
                 <div className="col-6 form-group">
-                    <label className="mb-2">Select Quiz</label>
+                    <label className="mb-2">{t('admin.select')}</label>
                     <Select
                         value={selectedQuiz}
                         onChange={setSelectedQuiz}
@@ -258,7 +263,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
                     />
                 </div>
             <div>
-                <div className="mt-3 mb-2">Add Question:</div>
+                <div className="mt-3 mb-2">{t('admin.addQuestion')}</div>
                 {questions && questions.length>0 &&
                 questions.map((item, index) => {
                     return(
@@ -270,7 +275,9 @@ const toBase64 = file => new Promise((resolve, reject) => {
                             value={item.description}
                             onChange={(event)=> handleOnChange('question', item.id, event.target.value)}
                         />
-                        <label>Question{index+1}'s Description</label>
+                        <label>
+                            {i18n.language === 'vi' ? `Mô tả câu hỏi ${index+1}`:`Question${index+1}'s Description`}
+                        </label>
                         </div>
                         <div className="group-upload">
                         <label htmlFor={`file ${item.id}`} className="label-upload">
@@ -284,7 +291,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
                             <span style={{cursor: "pointer"}}
                             onClick={()=>handlePreviewImage(item.id)}>
                                 {item.imageName}</span>
-                            : '0 file is uploaded' }
+                            : t('admin.upload') }
                         </span>
                         </div>
                         <div className="btn-add">
@@ -313,7 +320,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
                                 value={answer.description}
                                 onChange={(event)=> handleOnChange('answer', { questionId: item.id, answerId: answer.id }, event.target.value)}
                             />
-                            <label>Answer {ansIndex+1}</label>
+                            <label>{t('admin.answer')} {ansIndex+1}</label>
                             </div>
                             <div className="btn-group">
                             <button>
@@ -338,7 +345,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
                     <button 
                         onClick={()=>handleSubmitQuestionForQuiz()}
                         className="btn btn-warning">
-                        Save Questions
+                        {t('admin.save')}
                     </button>    
                 </div>}
                 {isPreviewImage===true &&

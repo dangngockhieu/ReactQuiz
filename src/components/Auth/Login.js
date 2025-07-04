@@ -57,12 +57,12 @@ const Login = (props)=>{
     return (
         <div className="auth-container">
             <div className='header'>
-                <span>{t('homepage.title_login1')}</span>
-                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowSignUp()}>{t('homepage.signup')}</button>
+                <span>{t('login.title1')}</span>
+                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowSignUp()}>{t('login.signup')}</button>
                 <Language />
             </div>
             <div className='title col-4 mx-auto'>App</div>
-            <div className='welcome col-4 mx-auto'>{t('homepage.title_login3')}</div>
+            <div className='welcome col-4 mx-auto'>{t('login.title3')}</div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
                     <label>Email</label>
@@ -74,7 +74,7 @@ const Login = (props)=>{
                     />
                 </div>
                 <div className='form-group'>
-                    <label>{t('homepage.password')}</label>
+                    <label>{t('login.password')}</label>
                     <div style={{ position: 'relative' }}>
                         <input type={showPassword ? "text" : "password"}
                             className="form-control"
@@ -97,17 +97,17 @@ const Login = (props)=>{
                     </div>
 
                     </div>
-                    <span className="forot-password">{t('homepage.title_login2')}</span>
+                    <span className="forot-password">{t('login.title2')}</span>
                     <div>
                         <button className='btn-submit mx-auto'
                             onClick={()=>handleLogin()}
                             disabled={isLoading}>
                             {isLoading===true && <ImSpinner10 className='loader-icon' /> }
-                            <span>{t('homepage.login')}</span>
+                            <span>{t('login.login')}</span>
                         </button>
                     </div>
                     <div className="text-center">
-                        <span className="back" onClick={()=>{navigate('/')}}>{t('homepage.gotohomepage')}</span>
+                        <span className="back" onClick={()=>{navigate('/')}}>{t('login.gotohomepage')}</span>
                     </div>
             </div>
         </div>  

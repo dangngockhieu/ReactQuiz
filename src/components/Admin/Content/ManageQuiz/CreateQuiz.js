@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { toast } from "react-toastify";
 import { postCreateNewQuiz } from '../../../../services/apiService';
 import { FcPlus } from 'react-icons/fc';
-
+import { useTranslation} from 'react-i18next';
 const options = [
   { value: 'EASY', label: 'EASY' },
   { value: 'MEDIUM', label: 'MEDIUM' },
@@ -11,6 +11,8 @@ const options = [
 ];
 
 const CreateQuiz = (props) => {
+  const { t } = useTranslation();
+
   const { fetchQuiz } = props;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -51,7 +53,7 @@ const CreateQuiz = (props) => {
   return (
     <div className="add-new">
       <fieldset className="border rounded-3 px-3 pb-3">
-        <legend className="float-none w-auto px-3" style={{fontSize:"20px",fontWeight:"450"}}>Add New Quiz</legend>
+        <legend className="float-none w-auto px-3" style={{fontSize:"20px",fontWeight:"450"}}>{t('admin.addNewQuiz')}</legend>
         <div className="form-floating mb-3">
           <input type="text" 
             className="form-control" 
@@ -59,7 +61,7 @@ const CreateQuiz = (props) => {
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
-          <label htmlFor="floatingInput">Name</label>
+          <label htmlFor="floatingInput">{t('admin.name')}</label>
         </div>
         <div className="form-floating">
           <input type="text" 
@@ -68,7 +70,7 @@ const CreateQuiz = (props) => {
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
-          <label htmlFor="floatingPassword">Description</label>
+          <label htmlFor="floatingPassword">{t('admin.description')}</label>
         </div>
         <div className="my-3" style={{fontSize:"16px",fontWeight:"450", color:"black"}}>
           <Select
@@ -81,7 +83,7 @@ const CreateQuiz = (props) => {
         <div className="more-actions form-group">
           <label htmlFor='labelCreate'>
             <FcPlus/>
-            Upload Image
+            {t('admin.uploadImage')}
           </label>
           <input type="file" 
             className="form-control" 
@@ -99,7 +101,7 @@ const CreateQuiz = (props) => {
           <button 
             className="btn btn-warning"
             onClick={handleSubmit}
-          >Save</button>
+          >{t('admin.save1')}</button>
         </div>
       </fieldset>
     </div>

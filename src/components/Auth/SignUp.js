@@ -47,12 +47,12 @@ const SignUp = (props)=>{
     return (
         <div className="auth-container">
             <div className='header'>
-                <span>{t('homepage.title_signup1')}</span>
-                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowLogin()}>{t('homepage.login')}</button>
+                <span>{t('signup.title1')}</span>
+                <button className='btn-submit' style={{background: "#ccc"}} onClick={()=>handleShowLogin()}>{t('signup.login')}</button>
                 <Language />
             </div>
             <div className='title col-4 mx-auto'>App</div>
-            <div className='welcome col-4 mx-auto'>{t('homepage.title_signup2')}</div>
+            <div className='welcome col-4 mx-auto'>{t('signup.title2')}</div>
             <div className='content-form col-4 mx-auto'>
                 <div className='form-group'>
                     <label>Email</label>
@@ -61,13 +61,13 @@ const SignUp = (props)=>{
                 </div>
 
             <div className='form-group'>
-                <label>{t('homepage.title_signup3')}</label>
+                <label>{t('signup.username')}</label>
                     <input type='text' className="form-control" value={username}
                         onChange={(event)=>setUsername(event.target.value)}/>
             </div>
 
             <div className='form-group'>
-                <label>{t('homepage.password')}</label>
+                <label>{t('signup.password')}</label>
                 <div style={{ position: 'relative' }}>
                     <input type={showPassword ? "text" : "password"}
                         className="form-control"
@@ -92,11 +92,11 @@ const SignUp = (props)=>{
                 <div>
                     <button className='btn-submit mx-auto'
                         onClick={()=>handleSignUp()}
-                    >{t('homepage.title_signup4')}</button>
+                    >{t('signup.title3')}</button>
                 </div>
 
                 <div className="text-center">
-                    <span className="back" onClick={()=>{navigate('/')}}>{t('homepage.gotohomepage')}</span>
+                    <span className="back" onClick={()=>{navigate('/')}}>{t('signup.gotohomepage')}</span>
                 </div>
             </div>
         </div>  

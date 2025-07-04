@@ -8,8 +8,10 @@ import Accordion from 'react-bootstrap/Accordion';
 import CreateQuiz from './CreateQuiz';
 import QuizQA from './QuizQA';
 import AssignQuiz from './AssignQuiz';
-
+import { useTranslation} from 'react-i18next';
 const ManageQuiz = (props) => {
+const { t } = useTranslation();
+
     const [showDelete, setShowDelete] = useState(false);
     const [dataDelete, setDataDelete] = useState({});
     const [showUpdate, setShowUpdate] = useState(false);
@@ -43,7 +45,7 @@ const ManageQuiz = (props) => {
         <div className="quiz-container">
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Manage Quiz</Accordion.Header>
+                    <Accordion.Header>{t('admin.manage-quiz')}</Accordion.Header>
                     <Accordion.Body>
                         <CreateQuiz
                             fetchQuiz={fetchQuiz}
@@ -59,13 +61,13 @@ const ManageQuiz = (props) => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Update Q/A Quiz</Accordion.Header>
+                    <Accordion.Header>{t('admin.title1')}</Accordion.Header>
                     <Accordion.Body>
                         <QuizQA />
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Header>{t('admin.title2')}</Accordion.Header>
                     <Accordion.Body>
                         <AssignQuiz />
                     </Accordion.Body>

@@ -1,8 +1,8 @@
 import ReactPaginate from "react-paginate";
-
+import { useTranslation} from 'react-i18next';
 const TableUserPaginate =(props) =>{
     const {listUsers, pageCount} =props;
-    
+    const { t } = useTranslation();
   const handlePageClick = (event) => {
     props.setCurrentPage(+event.selected + 1);
     props.fetchListUsersWithPaginate(+event.selected + 1);
@@ -13,10 +13,10 @@ const TableUserPaginate =(props) =>{
   <thead>
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">Username</th>
+      <th scope="col">{t('manageUser.username')}</th>
       <th scope="col">Email</th>
-      <th scope="col">Role</th>
-      <th scope="col">Actions</th>
+      <th scope="col">{t('manageUser.role')}</th>
+      <th scope="col">{t('manageUser.action')}</th>
     </tr>
   </thead>
   <tbody>
@@ -31,14 +31,14 @@ const TableUserPaginate =(props) =>{
             <td>
               <button className="btn btn-secondary"
                 onClick={() => props.handleClickBtnView(item)}
-                  >View</button>
+                  >{t('manageUser.view')}</button>
               <button className="btn btn-warning mx-3"
                 onClick={() => props.handleClickBtnUpdate(item)}
-                  >Update
+                  >{t('manageUser.update')}
               </button>
               <button className="btn btn-danger"
                 onClick={() => props.handleClickBtnDelete(item)}
-                  >Delete</button>
+                  >{t('manageUser.delete')}</button>
             </td>
           </tr>
         )
@@ -46,18 +46,18 @@ const TableUserPaginate =(props) =>{
     }
     {listUsers && listUsers.length === 0 &&
       <tr>
-        <td colSpan="4" className="text-center">No users found</td>
+        <td colSpan="4" className="text-center">{t('manageUser.not-found')}</td>
       </tr>
     }
   </tbody>
 </table>
 <ReactPaginate
-        nextLabel="Next >"
+        nextLabel={t('manageUser.next')}
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
         pageCount={pageCount}
-        previousLabel="< Prev"
+        previousLabel={t('manageUser.prev')}
         pageClassName="page-item"
         pageLinkClassName="page-link"
         previousClassName="page-item"

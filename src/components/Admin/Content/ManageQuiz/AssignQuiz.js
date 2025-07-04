@@ -2,7 +2,10 @@ import {useState, useEffect} from 'react';
 import Select from 'react-select';
 import { toast } from "react-toastify";
 import { getAllQuizForAdmin, getAllUsers , postAssignQuiz} from '../../../../services/apiService';
+import { useTranslation} from 'react-i18next';
 const AssignQuiz = (props)=>{
+    const { t } = useTranslation();
+
     const [selectedQuiz, setSelectedQuiz] = useState({});
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedUser, setSelectedUser] = useState({});
@@ -45,7 +48,7 @@ const AssignQuiz = (props)=>{
     return (
         <div className="assign-quiz-container row">
             <div className="col-6 form-group">
-                <label classname="mb-2">Select Quiz</label>
+                <label classname="mb-2">{t('admin.select')}</label>
                 <Select
                     defaultValue={selectedQuiz}
                     onChange={setSelectedQuiz}
@@ -53,7 +56,7 @@ const AssignQuiz = (props)=>{
                 />
             </div>
             <div className="col-6 form-group">
-                <label classname="mb-2">Select User</label>
+                <label classname="mb-2">{t('admin.selectUser')}</label>
                 <Select
                     defaultValue={selectedUser}
                     onChange={setSelectedUser}

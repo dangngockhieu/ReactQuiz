@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash';
-
+import { useTranslation} from 'react-i18next';
 const ModelViewUser = (props) => {
   const { show, setShow, dataUpdate } = props;
-
+  const { t } = useTranslation();
   const handleClose = () => {
     setShow(false);
   };
@@ -34,7 +34,7 @@ const ModelViewUser = (props) => {
     <Modal show={show} onHide={handleClose}
       size='xl' backdrop="static" className="model-add-user">
       <Modal.Header closeButton>
-        <Modal.Title>View a user</Modal.Title>
+        <Modal.Title>{t('manageUser.viewUser')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form className="row g-3">
@@ -45,32 +45,32 @@ const ModelViewUser = (props) => {
             />
           </div>
           <div className="col-md-6">
-            <label className="form-label">Password</label>
+            <label className="form-label">{t('manageUser.password')}</label>
             <input type="password" className="form-control" 
             value={password} disabled
     />
   </div>
           <div className="col-md-6">
-            <label className="form-label">Username</label>
+            <label className="form-label">{t('manageUser.username')}</label>
             <input type="text" className="form-control"
               value={username} disabled
             />
           </div>
           <div className="col-md-4">
-            <label className="form-label">Role</label>
+            <label className="form-label">{t('manageUser.role')}</label>
             <select className="form-select" value={role} disabled>
-              <option value="USER">USER</option>
-              <option value="ADMIN">ADMIN</option>
+              <option value="USER">{t('manageUser.user')}</option>
+              <option value="ADMIN">{t('manageUser.admin')}</option>
             </select>
           </div>
           {/* ----------------------------------------------- */}
           <div className="col-md-12">
-                  <div className="upload">Image</div>
+                  <div className="upload">{t('manageUser.image')}</div>
               </div>
               <div className="col-md-12 img-preview">
                  {previewImage ? 
                     <img src={previewImage} alt="Preview" /> 
-                  : <span>Preview image</span>
+                  : <span>{t('manageUser.preview')}</span>
           }
               </div>
           {/* ----------------------------------------------- */}
@@ -78,7 +78,7 @@ const ModelViewUser = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Close
+          {t('manageUser.close')}
         </Button>
       </Modal.Footer>
     </Modal>

@@ -7,10 +7,14 @@ const Language = (props) => {
   };
   return (
     <>
-        <NavDropDown style={{ fontSize: "20px", fontWeight: 600, color:"red"}} 
-                title={i18n.language === 'vi' ? 'Vie':'Eng'} id="basic-nav-dropdown2" className="languages">
-            <NavDropDown.Item onClick={()=>handleChangeLanguage('en')}>English</NavDropDown.Item>
-            <NavDropDown.Item onClick={()=>handleChangeLanguage('vi')}>Việt Nam</NavDropDown.Item>
+        <NavDropDown className="languages" id="basic-nav-dropdown2"
+                title={i18n.language === 'vi' ? 'Vie':'Eng'}  >
+            <NavDropDown.Item onClick={()=>handleChangeLanguage('en')}>
+              {i18n.language === 'vi' ? 'Tiếng Anh':'English'}
+            </NavDropDown.Item>
+            <NavDropDown.Item onClick={()=>handleChangeLanguage('vi')}>
+              {i18n.language === 'vi' ? 'Tiếng Việt':'Vietnamese'}
+            </NavDropDown.Item>
         </NavDropDown>
     </>
   );

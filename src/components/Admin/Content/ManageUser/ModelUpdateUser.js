@@ -5,7 +5,9 @@ import { FcPlus } from 'react-icons/fc';
 import { toast } from "react-toastify";
 import { putUpdateUser } from '../../../../services/apiService';
 import _ from 'lodash';
+import { useTranslation} from 'react-i18next';
 const ModelUpdateUser = (props) => {
+  const { t } = useTranslation();
 const { show, setShow, dataUpdate} = props;
 const handleClose = () => {
   setShow(false);
@@ -59,7 +61,7 @@ const handleSubmiUpdateUser = async() => {
       <Modal show={show} onHide={handleClose} 
       size='xl' backdrop="static" className="model-add-user">
         <Modal.Header closeButton>
-          <Modal.Title>Update a user</Modal.Title>
+          <Modal.Title>{t('manageUser.updateUser')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <form className="row g-3">
@@ -71,7 +73,7 @@ const handleSubmiUpdateUser = async() => {
     />
   </div>
   <div className="col-md-6">
-    <label className="form-label">Password</label>
+    <label className="form-label">{t('manageUser.password')}</label>
     <input type="password" className="form-control" 
         value={password} disabled
         onChange={(event)=>setPassword(event.target.value)}
@@ -79,23 +81,23 @@ const handleSubmiUpdateUser = async() => {
   </div>
   
   <div className="col-md-6">
-    <label className="form-label">Username</label>
+    <label className="form-label">{t('manageUser.username')}</label>
     <input type="text" className="form-control" 
         value={username}
         onChange={(event)=>setUsername(event.target.value)}
     />
   </div>
   <div className="col-md-4">
-    <label className="form-label">Role</label>
+    <label className="form-label">{t('manageUser.role')}</label>
     <select className="form-select" value={role} onChange={(event)=>setRole(event.target.value)}>
-      <option value="USER">USER</option>
-      <option value="ADMIN">ADMIN</option>
+      <option value="USER">{t('manageUser.user')}</option>
+      <option value="ADMIN">{t('manageUser.admin')}</option>
     </select>
   </div>
     <div className="col-md-12">
         <label className="form-label label-upload" htmlFor='labelUpload'>
           <FcPlus/>
-          Upload File Image
+          {t('manageUser.upload')}
           </label>
         <input type="file" 
         id="labelUpload" 
@@ -105,7 +107,7 @@ const handleSubmiUpdateUser = async() => {
     <div className="col-md-12 img-preview">
        {previewImage ? 
           <img src={previewImage} alt="Preview" /> 
-        : <span>Preview image</span>
+        : <span>{t('manageUser.preview')}</span>
 }
     </div>
 
@@ -113,10 +115,10 @@ const handleSubmiUpdateUser = async() => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t('manageUser.close')}
           </Button>
           <Button variant="primary" onClick={()=>handleSubmiUpdateUser()}>
-            Save 
+            {t('manageUser.save')} 
           </Button>
         </Modal.Footer>
       </Modal>

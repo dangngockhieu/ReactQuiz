@@ -7,7 +7,9 @@ import ModelUpdateUser from "./ModelUpdateUser";
 import ModelViewUser from "./ModelViewUser";
 import ModelDeleteUser from "./ModelDeleteUser";
 import TableUserPaginate from "./TableUserPaginate";
+import { useTranslation} from 'react-i18next';
 const ManagerUser = (props) =>{
+    const { t } = useTranslation();
     const LIMIT_USER = 7;
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -54,13 +56,13 @@ const ManagerUser = (props) =>{
     return(
         <div className="manage-user-container">
             <div className="title ">
-                Manage Users
+                {t('manageUser.title1')}
             </div> 
             <div className="users-content">
                 <div className="btn-add-new">
                     <button className="btn btn-primary"
                         onClick={()=>setshowModelCreateUser(true)}
-                    ><FcPlus/>Add new users</button>
+                    ><FcPlus/>{t('manageUser.createUser')}</button>
                 </div>
                 <div className="table-users-container">
                     <TableUserPaginate

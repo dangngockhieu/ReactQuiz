@@ -1,0 +1,26 @@
+.languages > .dropdown-toggle {
+  color: #2f2d2d !important;         
+  font-weight: 600 !important;    
+  background: transparent !important;
+  border: none !important;
+  font-size: 1.3rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  box-shadow: none !important;
+  transition: color 0.2s;
+
+}
+.nav-strong {
+  color: #2f2d2d ;
+  font-weight: 600 !important;
+  &:hover {
+    color: #007bff !important;
+  }
+}
+.nav-a > .dropdown-toggle {
+  color: #2f2d2d !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 1.3rem;
+}
