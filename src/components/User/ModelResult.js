@@ -4,9 +4,12 @@ import { useTranslation} from 'react-i18next';
 const ModelResult = (props) => {
   const { t } = useTranslation();
 
-  const {show, setShow, dataModel} = props;
+  const {show, setShow, dataModel, setIsShowAnswer} = props;
   const handleClose = () => setShow(false);
-
+  const handleShowAnswer = () => {
+    setShow(false);
+    setIsShowAnswer(true); // Hiện đáp án
+  };
   return (
     <>
       <Modal show={show} 
@@ -20,7 +23,7 @@ const ModelResult = (props) => {
           <div>{t('user.totalCorrect')}<b>{dataModel.countCorrect}</b></div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleShowAnswer}>
             {t('user.showanswer')}
           </Button>
           <Button variant="primary" onClick={handleClose}>

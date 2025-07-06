@@ -35,7 +35,7 @@ const RightContent = (props)=>{
     return(
     <>
         <div className="main-timer">
-            <CountDown onTimeUp={onTimeUp}/>
+            <CountDown onTimeUp={onTimeUp} isFinish={props.isFinish}/>
         </div>
         <div className="main-question">
             {dataQuiz && dataQuiz.length > 0 &&

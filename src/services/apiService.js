@@ -30,8 +30,8 @@ const getUserWithPaginate = (page, limit) => {
 const postLogin = (email, password) => {
      return axios.post('api/v1/login',{email, password});
 }
-const postSignUp = (email, password)=>{
-    return axios.post('api/v1/register',{email, password, delay: 5000});
+const postSignUp = (email, username, password)=>{
+    return axios.post('api/v1/register',{email, username, password});
 }
 const getQuizByUser =() =>{
     return axios.get('api/v1/quiz-by-participant');
@@ -94,6 +94,21 @@ const Logout =(email, refresh_token)=>{
 const getOverview = () => {
     return axios.get(`api/v1/overview`);
 }
+const refreshToken =(email, refresh_token)=>{
+    return axios.post(`api/v1/refresh-token`, {email, refresh_token});
+}
+const changePassword = (email, current_password, new_password) => {
+    return axios.post('api/v1/change-password', { email, current_password, new_password });
+}
+const getHistory = () => {
+    return axios.get('api/v1/history');
+}
+const updateProfile = (username, userImage) => {
+    const data = new FormData();
+    data.append('username', username);
+    data.append('userImage', userImage);
+    return axios.post('api/v1/profile', data);
+}
 export {postCreateNewUser, getAllUsers, 
     putUpdateUser, deleteUser, 
     getUserWithPaginate, postLogin, 
@@ -105,5 +120,7 @@ export {postCreateNewUser, getAllUsers,
     postCreateNewAnswer,
     postAssignQuiz, getQuizWithQA,
     postUpsertQA, Logout,
-    getOverview
+    getOverview, refreshToken,
+    changePassword, getHistory,
+    updateProfile
 };

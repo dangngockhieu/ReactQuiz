@@ -11,7 +11,10 @@ import Language from './Language';
 import { useTranslation} from 'react-i18next';
 import './Header.scss'; 
 import { GrReactjs } from "react-icons/gr";
+import Profile from './Profile';
+import { useState } from 'react';
 const Header = () => {
+  const [isShowModelProfile, setIsShowModelProfile] = useState(false);
   const { t } = useTranslation();
   const isAuthenticated = useSelector(state => state.user.isAuthenticated);
   const account = useSelector(state => state.user.account);
@@ -40,6 +43,7 @@ const Header = () => {
     }
   }
   return (
+    <>
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand  style={{ fontSize: "3rem",         
@@ -62,18 +66,21 @@ const Header = () => {
           <Nav className="me-auto">
             <NavLink to="/" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.home')}</NavLink>
             <NavLink to="/users" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.user')}</NavLink>
-            <NavLink to="/admins" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.admin')}</NavLink>
+            {isAuthenticated && account && account.role === 'ADMIN' && (
+    <NavLink to="/admins" className="nav-link nav-strong" style={{ fontSize: "1.5rem" }}>{t('homepage.admin')}</NavLink>
+  )}
           </Nav>
-          <Nav className="align-items-center">
-                       
+          <Nav  style={{marginRight: "0"}}>   
             {isAuthenticated ===false ?
               <>
                <button className='btn-login' style={{background: "#ccc"}} onClick={()=>handleShowLogin()}>{t('homepage.login')}</button>
               <button className='btn-signup' onClick={()=>handleShowSignUp()}>{t('homepage.signup')}</button>
               </>
             :
-            <NavDropDown className="nav-a" title={t('homepage.setting')} id="basic-nav-dropdown">
-              <NavDropDown.Item>{t('homepage.profile')}</NavDropDown.Item>
+            <NavDropDown className='btn-login nav-a' style={{border: "1px solid black",background: "#ccc",marginTop: "2px",
+                                              display: "flex", alignItems: "center",justifyContent: "center"}}
+                          title={t('homepage.setting')} id="basic-nav-dropdown">
+              <NavDropDown.Item onClick={()=> setIsShowModelProfile(true)}>{t('homepage.profile')}</NavDropDown.Item>
               <NavDropDown.Item onClick={()=>handelLogout()}>{t('homepage.logout')}</NavDropDown.Item>
             </NavDropDown>
             }
@@ -84,6 +91,10 @@ const Header = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Profile 
+        show={isShowModelProfile}
+        setShow={setIsShowModelProfile}/>
+    </>
   );
 }
 

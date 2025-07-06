@@ -55,6 +55,10 @@
     "manage-quiz": "Manage Quizzes",
     "title1": "Update Q/A Quiz",
     "title2": "Assign to User",
+    "title3a": "Confirm Delete the Quiz?",
+    "title3b": "Are you sure to delete this quiz? Name : ",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
     "select": "Select Quiz",
     "selectUser": "Select User",
     "addQuestion": "Add Question:",
@@ -100,11 +104,26 @@
     "viewUser": "View a User",
     "image": "Image",
     "updateUser": "Update a User",
+    "manage": "Manage User Information",
     "deleteUser1": "Confirm Delete the User?",
     "deleteUser2": "Are you sure to delete this user. email : ",
     "createUser": "Add new users",
     "preview": "Preview Image",
     "title1": "Manage Users"
+  },
+  "profile":{
+    "title1": "Recent Quiz History",
+    "title2": "User Information",
+    "title3": "Change Password",
+    "title4": "History",
+    "name": "Quiz Name",
+    "total_questions": "Total Questions",
+    "total_correct": "Total Correct Answers",
+    "date": "Time",
+    "notfound": "No Quiz History Found",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password"
   }
 }
     

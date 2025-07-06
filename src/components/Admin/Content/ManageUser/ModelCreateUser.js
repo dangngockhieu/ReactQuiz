@@ -38,6 +38,9 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+const validatePassword = (pw) => {
+    return pw.length >= 6;
+}
 const handleSubmitCreateUser = async() => {
   //validate 
   const isValidEmail = validateEmail(email);
@@ -45,10 +48,11 @@ const handleSubmitCreateUser = async() => {
     toast.error("Invalid email");
     return;
   }
-  if(!password) {
-    toast.error("Invalid password");
+  const isValidPassword = validatePassword(password);
+  if(!isValidPassword) {
+    toast.error("Password must contain at least 6 characters, including uppercase, lowercase, number, and special character");
     return;
-  } 
+  }
   let data = await postCreateNewUser(email, password, username, role, image);
   if(data && data.EC === 0) {
     toast.success("Create user successfully");

@@ -30,11 +30,21 @@ const SignUp = (props)=>{
             toast.error("Invalid email");
             return;
         }
+        // Validate username
+        if(!username) {
+            toast.error("Username is required");
+            return;
+        }   
+    
         if(!password) {
             toast.error("Invalid password");
             return;
         } 
-  let data = await postSignUp(email, password);
+        if(password.length < 6) {
+        toast.error("Password must be at least 6 characters");
+        return;
+    }
+  let data = await postSignUp(email, username, password);
   if(data && data.EC === 0) {
     toast.success("SignUp successfully");
     navigate('/login');

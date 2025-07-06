@@ -7,9 +7,9 @@ import Question from "./Question";
 import ModelResult from "./ModelResult";
 import RightContent from "./Content/RightContent";
 import { useTranslation} from 'react-i18next';
-const DetailQuiz = (props) => {
+const DetailQuiz = () => {
     const { t } = useTranslation();
-
+    const [isShowAnswer, setIsShowAnswer] = useState(false);
     const params = useParams(); 
     const location = useLocation();
     const quizId = params.id; 
@@ -17,6 +17,7 @@ const DetailQuiz = (props) => {
     const [index, setIndex] = useState(0);
     const [isShow, setIsShow] = useState(false);
     const [dataModel, setDataModel] = useState({});
+    const [isFinish, setIsFinish] = useState(false);
     const handlePrev = () => {
         if (dataQuiz && index > 0) {
             setIndex(index - 1);
@@ -28,6 +29,7 @@ const DetailQuiz = (props) => {
         }
     }
     const handleFinish = async() => {
+        setIsFinish(true); 
         let payload={
             quizId: +quizId,
             answers: []
@@ -56,11 +58,39 @@ const DetailQuiz = (props) => {
                     quizData: res.DT.quizData
                 });
                 setIsShow(true);
+                if(res.DT && res.DT.quizData){
+                    let dataQuizClone = _.cloneDeep(dataQuiz);
+                    let a= res.DT.quizData;
+                    for (let q of a){
+                        for(let i=0; i<dataQuizClone.length; i++){
+                            if(+dataQuizClone[i].questionId === +q.questionId){
+                                let newAnswers=[];
+                                for(let j=0; j<dataQuizClone[i].answers.length; j++){
+                                    let s=q.systemAnswers.find(item => +item.id === +dataQuizClone[i].answers[j].id);
+                                    if(s){
+                                        dataQuizClone[i].answers[j].isCorrect = true;
+                                    }
+                                    newAnswers.push(dataQuizClone[i].answers[j]);
+                                }
+                                dataQuizClone[i].answers = newAnswers;
+                            }
+                        }
+                    }
+                    setDataQuiz(dataQuizClone);
+                }
             }
             else{
                 alert("Wrong answer, please try again!");
             }
         }
+    }
+    const handleCloseResult = () => {
+        // setIsShow(false);
+        // setIsShowAnswer(false);
+        // setIndex(0);
+        // setDataQuiz([]);
+        window.location.href = '/users';
+
     }
     const handleCheck=(answerId, questionId)=>{
         let dataQuizClone = _.cloneDeep(dataQuiz);
@@ -94,14 +124,9 @@ const DetailQuiz = (props) => {
                             questionDescription = item.description;
                             image = item.image;
                         }
-                        // Nếu answers là mảng
-                        if (Array.isArray(item.answers)) {
-                            item.answers.forEach(ans => ans.isSelected = false);
-                            answers.push(...item.answers);
-                        } else if (item.answers) {
-                            item.answers.isSelected = false;
-                            answers.push(item.answers);
-                        }
+                        item.answers.isSelected = false;
+                        item.answers.isCorrect = false;
+                        answers.push(item.answers);
                     });
                     answers=_.orderBy(answers, ['id'], ['asc']);
                     return { questionId: key, answers, questionDescription, image }
@@ -125,11 +150,18 @@ const DetailQuiz = (props) => {
                     <Question 
                         index={index}
                         handleCheck={handleCheck}
-                        data={dataQuiz && dataQuiz.length >0 
-                        ? dataQuiz[index]:[]}
+                        data={dataQuiz && dataQuiz.length >0 ? dataQuiz[index]:[]}
+                        isShowAnswer={isShowAnswer}
+                        isSubmitQuiz={isShow}
                     />
                 </div>
                 <div className="footer">
+                    {isShowAnswer && (
+                        <button className="btn btn-warning"
+                            onClick={()=>handleCloseResult()}>
+                            Close
+                        </button>
+                    )}
                     <button className="btn btn-secondary"
                         onClick={()=>handlePrev()}>
                             {t('user.prev')}
@@ -138,10 +170,12 @@ const DetailQuiz = (props) => {
                         onClick={()=>handleNext()}>
                             {t('user.next')}
                     </button>
-                    <button className="btn btn-warning"
-                        onClick={()=>handleFinish()}>
+                    {!isShowAnswer && (
+                        <button className="btn btn-warning"
+                            onClick={()=>handleFinish()}>
                             {t('user.finish')}
-                    </button>
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="right-content">
@@ -149,12 +183,14 @@ const DetailQuiz = (props) => {
                     dataQuiz={dataQuiz}
                     handleFinish={handleFinish}
                     setIndex={setIndex}
+                    isFinish={isFinish}
                 />
             </div>
             <ModelResult
                 show={isShow}
                 setShow={setIsShow}
                 dataModel={dataModel}
+                setIsShowAnswer={setIsShowAnswer}
             />
         </div>
     );

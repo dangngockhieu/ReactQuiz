@@ -38,7 +38,7 @@ const ListQuiz= (props) =>{
             })
             }
             {arrQuiz && arrQuiz.length === 0 &&
-                <div className="alert alert-info" role="alert">
+                <div className="alert alert-info " role="alert">
                     You don't have any quiz now...
                 </div>
             }

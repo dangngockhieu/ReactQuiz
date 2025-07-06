@@ -54,6 +54,10 @@
     "manage-quiz": "Quản lý Bài kiểm tra",
     "title1": "Cập nhật Q/A Quiz",
     "title2": "Assign cho Người dùng",
+    "title3a": "Xác nhận Xóa Bài kiểm tra?",
+    "title3b": "Bạn có chắc chắn muốn xóa bài kiểm tra này? Tên : ",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
     "select": "Chọn Bài kiểm tra",
     "selectUser": "Chọn Người dùng",
     "addQuestion": "Thêm Câu hỏi:",
@@ -98,11 +102,26 @@
     "prev": "< Lùi",
     "viewUser": "Xem Người dùng",
     "updateUser": "Cập nhật Người dùng",
+    "manage": "Quản lý Thông tin Người dùng",
     "deleteUser1": "Xác nhận xóa Người dùng?",
     "deleteUser2": "Bạn có chắc xóa người dùng này. email : ",
     "createUser": "Thêm người dùng mới",
     "image": "Ảnh",
     "preview": "Xem trước Hình ảnh",
     "title1": "Danh sách Người dùng"
+  },
+  "profile":{
+    "title1": "Lịch sử làm Quiz gần đây",
+    "title2": "Thông tin Người dùng",
+    "title3": "Thay đổi Mật khẩu",
+    "title4": "Lịch sử",
+    "name": "Tên Quiz",
+    "total_questions": "Tổng Số câu",
+    "total_correct": "Số câu đúng",
+    "date": "Thời gian",
+    "notfound": "Không có lịch sử Quiz nào",
+    "oldPassword": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận Mật khẩu"
   }
 }

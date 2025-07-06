@@ -27,7 +27,10 @@ instance.interceptors.response.use(
         return response && response.data ? response.data : response;
     },
     (error) => {
-        // Handle response error
+        NProgress.done();
+        if(error.response.data && error.response.data.EC === -999) {
+            window.location.href = '/login';
+        }
         return error && error.response && error.response.data ? error.response.data : Promise.reject(error);
     }
 );
