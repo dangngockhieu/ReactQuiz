@@ -22,10 +22,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state, account: {
                     access_token: action?.payload?.DT?.access_token,
                     refresh_token: action?.payload?.DT?.refresh_token,
-                    username: action?.payload?.DT?.username,
-                    image: action?.payload?.DT?.image,
-                    role: action?.payload?.DT?.role,
-                    email: action?.payload?.DT?.email
+                    username: action?.payload?.DT?.user?.username,
+                    image: action?.payload?.DT?.user?.image,
+                    role: action?.payload?.DT?.user?.role,
+                    email: action?.payload?.DT?.user?.email
                 },
                 isAuthenticated: true
             };
