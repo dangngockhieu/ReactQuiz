@@ -14,24 +14,27 @@ const UserInfor = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("USER");
-  const [image, setImage] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
+  const [image, setImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
 
   useEffect(() => {
     if (account && !_.isEmpty(account)) {
       setEmail(account.email);
       setUsername(account.username);
       setRole(account.role);
-      setImage("");
-      if (account && account.image) {
+      setImage(account.image);
+      if (account.image) {
         setPreviewImage(`data:image/jpeg;base64,${account.image}`);
+      } else {
+        setPreviewImage("");
       }
     }
   }, [account]);
+
   const handleUploadImage = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
       setPreviewImage(URL.createObjectURL(event.target.files[0]));
+      setImage(event.target.files[0]);
     }
   };
 
@@ -40,9 +43,10 @@ const UserInfor = () => {
     let data = await updateProfile(username, image);
     if (data && data.EC === 0) {
       toast.success("Update user successfully");
+      
       // Cập nhật Redux store
       dispatch(doUpdateUserInfo({
-        ...account,
+        // ...account,
         username: username,
         image: data.DT?.image || account.image
       }));
@@ -57,7 +61,7 @@ const UserInfor = () => {
       <div className="col-md-6">
         <label className="form-label">Email</label>
         <input type="email" className="form-control"
-          value={email} disabled
+          value={email || ""} disabled
         />
       </div>
       <div className="col-md-6">
@@ -69,13 +73,13 @@ const UserInfor = () => {
       <div className="col-md-6">
         <label className="form-label">{t('manageUser.username')}</label>
         <input type="text" className="form-control"
-          value={username}
+          value={username || ""}
           onChange={(event) => setUsername(event.target.value)}
         />
       </div>
       <div className="col-md-4">
         <label className="form-label">{t('manageUser.role')}</label>
-        <select className="form-select" value={role} disabled>
+        <select className="form-select" value={role || "USER"} disabled>
           <option value="USER">{t('manageUser.user')}</option>
           <option value="ADMIN">{t('manageUser.admin')}</option>
         </select>
